@@ -10,7 +10,7 @@ printMenu = function (t)
   term.setBackgroundColor(colors.red)
   term.write("Activate Turbine")
   term.setCursorPos(1,row)
-  term.setBackgroundColoe(colors.black)
+  term.setBackgroundColor(colors.black)
 end
 updateDisp = function (c)
   while true do

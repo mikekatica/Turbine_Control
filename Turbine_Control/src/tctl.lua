@@ -131,58 +131,58 @@ control = {
     end
     return 1
   end,
-  updateDisplay = function (c)
+  updateDisplay = function (self)
     local row = 1
-    c.monitor.clear()
-    c.monitor.setCursorPos(1,row)
+    self.monitor.clear()
+    self.monitor.setCursorPos(1,row)
     row = row + 1
-    c.monitor.setTextColor(colors.lightBlue)
-    c.monitor.write("Turbine Controller")
-    c.monitor.setCursorPos(1,row)
+    self.monitor.setTextColor(colors.lightBlue)
+    self.monitor.write("Turbine Controller")
+    self.monitor.setCursorPos(1,row)
     row = row + 1
-    if c.stage == 0 then
-      c.monitor.setTextColor(color.lightGrey)
-      c.monitor.write("Turbine Spinning Up")
-    elseif c.stage == 1 then
-      c.monitor.setTextColor(colors.green)
-      c.monitor.write("Turbine Stable")
-    elseif c.stage == -1 then
-      c.monitor.setTextColor(colors.red)
-      c.monitor.write("Turbine Disabled")
+    if self.stage == 0 then
+      self.monitor.setTextColor(color.lightGrey)
+      self.monitor.write("Turbine Spinning Up")
+    elseif self.stage == 1 then
+      self.monitor.setTextColor(colors.green)
+      self.monitor.write("Turbine Stable")
+    elseif self.stage == -1 then
+      self.monitor.setTextColor(colors.red)
+      self.monitor.write("Turbine Disabled")
     end
-    c.monitor.setCursorPos(1,row)
+    self.monitor.setCursorPos(1,row)
     row = row + 1
-    c.monitor.setTextColor(colors.white)
-    c.monitor.write("RPM: ")
-    local rpm = c.turbine.getRotorSpeed()
-    if (rpm < c.target - 5) then
-      c.monitor.setTextColor(colors.blue)
+    self.monitor.setTextColor(colors.white)
+    self.monitor.write("RPM: ")
+    local rpm = self.turbine.getRotorSpeed()
+    if (rpm < self.target - 5) then
+      self.monitor.setTextColor(colors.blue)
     elseif (rpm > 2000) then
-      c.monitor.setTextColor(colors.red)
+      self.monitor.setTextColor(colors.red)
     else
-      c.monitor.setTextColor(colors.lime)
+      self.monitor.setTextColor(colors.lime)
     end
-    c.monitor.write(rpm)
+    self.monitor.write(rpm)
     if dFlow then
-      c.monitor.setCursorPos(1,row)
+      self.monitor.setCursorPos(1,row)
       row = row + 1
-      c.monitor.setTextColor(colors.white)
-      c.monitor.write("Flow: ")
-      c.monitor.setTextColor(colors.magenta)
-      c.monitor.write(c.turbine.getFluidFlowRateMax)
+      self.monitor.setTextColor(colors.white)
+      self.monitor.write("Flow: ")
+      self.monitor.setTextColor(colors.magenta)
+      self.monitor.write(self.turbine.getFluidFlowRateMax)
     end
-    c.monitor.setCursorPos(1,row)
+    self.monitor.setCursorPos(1,row)
     row = row + 1
-    if c.turbine.getInductorEngaged() then
-      c.monitor.setTextColor(colors.green)
-      c.monitor.write("Coils Engaged")
-      c.monitor.setCursorPos(1,row)
+    if self.turbine.getInductorEngaged() then
+      self.monitor.setTextColor(colors.green)
+      self.monitor.write("Coils Engaged")
+      self.monitor.setCursorPos(1,row)
       row = row + 1
-      c.monitor.setTextColor(colors.orange)
-      c.monitor.write(c.turbine.getEnergyProducedLastTick() .. " RF/t")
+      self.monitor.setTextColor(colors.orange)
+      self.monitor.write(self.turbine.getEnergyProducedLastTick() .. " RF/t")
     else
-      c.monitor.setTextColor(colors.red)
-      c.monitor.write("Coils Disengaged")
+      self.monitor.setTextColor(colors.red)
+      self.monitor.write("Coils Disengaged")
     end
   end,
 }

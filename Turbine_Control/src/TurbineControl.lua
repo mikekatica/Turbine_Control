@@ -23,6 +23,8 @@ l.setFilename(l, nil)
 l.createFile(l)
 c.setUp(c,t,m,800,l)
 term.clear()
+d = multisehll.launch({},"soft/DisplayControl")
+multishell.setTitle(d, "Display")
 while not exit do
 local event, button, xPos, yPos = os.pullEvent("mouse_click")
 rstTerm()

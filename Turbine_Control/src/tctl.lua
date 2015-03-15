@@ -59,7 +59,7 @@ control = {
     local stableCounter = 0
     prevtime = os.clock()
     --t.setFluidFlowRateMax(self.maxFlow)
-    while self.stableCounter < 1000 do
+    while stableCounter < 1000 do
       term.clear()
       term.setCursorPos(1,1)
       err = self.target - self.turbine.getRotorSpeed()

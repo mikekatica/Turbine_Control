@@ -4,14 +4,11 @@ control = {
   CNST_SPINUP = 0,
   CNST_STABLE = 1,
   previous_error = 0,
-  integral = 0,
-  stableCounter = 0,
   stage = -1,
   target = 0,
-  previous_error = 0,
-  integral = 0,
-  stableCounter = 0,
-  err = 0,
+  kp = 0.5,
+  ki = 0.5,
+  kd = 2,
   isSetUp = function (self)
     if not (self.turbine and self.target and m and self.maxFlow) then
       return 0
@@ -24,6 +21,11 @@ control = {
     self.monitor = m
     self.maxFlow = f
     self.log = l
+  end,
+  setConstants = function (self, p, i, d)
+    self.kp = p
+    self.kd = d
+    self.ki = i
   end,
   setTarget = function (self, n)
     self.target = n
@@ -49,31 +51,30 @@ control = {
     local dt = 0
     local calculatedFlow = 0
     local desiredFlow = self.maxFlow
-    self.previous_error = 0
-    self.integral = 0
-    self.stableCounter = 0
+    local val = 0
+    local integral = 0
+    local derivative = 0
+    local err = 0
+    local previous_error = 0
+    local stableCounter = 0
     prevtime = os.clock()
     --t.setFluidFlowRateMax(self.maxFlow)
     while self.stableCounter < 1000 do
       term.clear()
-      self.err = self.target - self.turbine.getRotorSpeed()
+      term.setCursorPos(1,1)
+      err = self.target - self.turbine.getRotorSpeed()
       curtime = os.clock()
       dt = curtime - prevtime
-      print("dt")
-      print(dt)
-      print("Error")
-      print(self.err)
-      self.integral = self.integral + self.err*dt
-      print("integral")
-      print(self.integral)
-      self.derivative = (self.err - self.previous_error)/dt
-      print("derivative")
-      print(self.derivative)
-      self.val = 0.5*self.err + 0.05*self.integral + 2*self.derivative
-      print("result")
-      print(self.val)
-      calculatedFlow = desiredFlow + self.val
-      print("Calculated Flow " .. calculatedFlow)
+      print("dt: "..dt)
+      print("Error: "..err)
+      integral = integral + err*dt
+      print("integral: "..integral)
+      derivative = (err - previous_error)/dt
+      print("derivative: "..derivative)
+      val = self.kp*err + self.ki*integral + self.kd*derivative
+      print("result: "..val)
+      calculatedFlow = desiredFlow + val
+      print("Calculated Flow: " .. calculatedFlow)
       if calculatedFlow > self.maxFlow then
         self.turbine.setFluidFlowRateMax(self.maxFlow)
         print("Set Flow to Max")
@@ -138,18 +139,6 @@ control = {
     row = row + 1
     self.monitor.setTextColor(colors.lightBlue)
     self.monitor.write("Turbine Controller")
-    self.monitor.setCursorPos(1,row)
-    row = row + 1
-    if self.stage == 0 then
-      self.monitor.setTextColor(color.lightGrey)
-      self.monitor.write("Turbine Spinning Up")
-    elseif self.stage == 1 then
-      self.monitor.setTextColor(colors.green)
-      self.monitor.write("Turbine Stable")
-    elseif self.stage == -1 then
-      self.monitor.setTextColor(colors.red)
-      self.monitor.write("Turbine Disabled")
-    end
     self.monitor.setCursorPos(1,row)
     row = row + 1
     self.monitor.setTextColor(colors.white)

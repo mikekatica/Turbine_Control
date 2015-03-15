@@ -65,7 +65,7 @@ run = function (c)
         local cnI = read()
         print("Kd: ")
         local cnD = read()
-        c.setConstants(cnP, cnI, cnD)
+        c.setConstants(c, cnP, cnI, cnD)
       end
     end
     sleep(0.5)

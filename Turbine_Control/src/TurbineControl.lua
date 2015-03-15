@@ -5,6 +5,8 @@ end
   t = peripheral.wrap("back")
   m = peripheral.wrap("top")
   l = tctl.logger
+  l.setFilename(l, nil)
+  l.createFile(l)
   c.setUp(c,t,m,800,l)
 rstTerm = function ()
   term.clear()
@@ -25,10 +27,8 @@ updateDisp = function (c)
     sleep(0.1)
   end
 end
-run = function (c, l)
+run = function (c)
   exit = false
-  l.setFilename(l, nil)
-  l.createFile(l)
   term.clear()
   while not exit do
     rstTerm()
@@ -45,4 +45,5 @@ run = function (c, l)
     sleep(0.5)
   end
 end
-parallel.waitForAny(function() run(c,l) end, function() updateDisp(c) end)
+--parallel.waitForAny(function() run(c,l) end, function() updateDisp(c) end)
+run(c)

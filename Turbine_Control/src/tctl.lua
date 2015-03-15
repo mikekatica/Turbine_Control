@@ -1,4 +1,4 @@
---turbineControl
+--tctl
 control = {
   CNST_OFF = -1,
   CNST_SPINUP = 0,

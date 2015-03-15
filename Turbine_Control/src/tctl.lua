@@ -102,9 +102,9 @@ control = {
       local timer = (math.floor(prevtime) == math.floor(curtime))
       print("Curtime " .. curtime)
       self.log.log(self.log, t, curtime, desiredFlow)
-      if not timer then
-        self.updateDisplay(self)
-      end
+      --if not timer then
+        --self.updateDisplay(self)
+      --end
       prevtime = curtime
       sleep(0.05)
     end

@@ -19,13 +19,13 @@ printMenu = function (t)
   term.setCursorPos(1,row)
   term.setBackgroundColoe(colors.black)
 end
-updateDisp = function ()
+updateDisp = function (c)
   while true do
     c.updateDisplay(c)
     sleep(0.1)
   end
 end
-run = function ()
+run = function (c, l)
   exit = false
   l.setFilename(l, nil)
   l.createFile(l)
@@ -45,4 +45,4 @@ run = function ()
     sleep(0.5)
   end
 end
-parallel.waitForAny(run, updateDisp)
+parallel.waitForAny(function() run(c,l) end, function() updateDisp(c) end)

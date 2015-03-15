@@ -46,17 +46,17 @@ control = {
     if not self.stage == self.CNST_SPINUP then
       return -1
     end
-    local curtime = 0
-    local prevtime = 0
-    local dt = 0
-    local calculatedFlow = 0
-    local desiredFlow = self.maxFlow
-    local val = 0
-    local integral = 0
-    local derivative = 0
-    local err = 0
-    local previous_error = 0
-    local stableCounter = 0
+    curtime = 0
+    prevtime = 0
+    dt = 0
+    calculatedFlow = 0
+    desiredFlow = self.maxFlow
+    val = 0
+    integral = 0
+    derivative = 0
+    err = 0
+    previous_error = 0
+    stableCounter = 0
     prevtime = os.clock()
     --t.setFluidFlowRateMax(self.maxFlow)
     while stableCounter < 1000 do

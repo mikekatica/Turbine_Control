@@ -86,7 +86,7 @@ m = peripheral.wrap("top")
 l = tctl.logger
 l.setFilename(l, nil)
 l.createFile(l)
-c.setUp(c,t,m,2000,l)
+c.setUp(c,t,m,800,l)
 c.setTarget(c,1800)
 parallel.waitForAny(function() run(c) end, function() updateDisp(c) end)
 print("Complete")

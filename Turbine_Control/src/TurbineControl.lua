@@ -1,13 +1,4 @@
-if not tctl then
-  os.loadAPI("soft/tctl")
-end
-  c = tctl.control
-  t = peripheral.wrap("back")
-  m = peripheral.wrap("top")
-  l = tctl.logger
-  l.setFilename(l, nil)
-  l.createFile(l)
-  c.setUp(c,t,m,800,l)
+--functions
 rstTerm = function ()
   term.clear()
   term.setCursorPos(1,1)
@@ -45,5 +36,17 @@ run = function (c)
     sleep(0.5)
   end
 end
+--init
+if not tctl then
+  os.loadAPI("soft/tctl")
+end
+c = tctl.control
+t = peripheral.wrap("back")
+m = peripheral.wrap("top")
+l = tctl.logger
+l.setFilename(l, nil)
+l.createFile(l)
+c.setUp(c,t,m,800,l)
 --parallel.waitForAny(function() run(c,l) end, function() updateDisp(c) end)
 run(c)
+print("Complete")

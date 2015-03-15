@@ -168,7 +168,7 @@ control = {
     self.monitor.setTextColor(colors.white)
     self.monitor.write("Flow: ")
     self.monitor.setTextColor(colors.magenta)
-    self.monitor.write(self.turbine.getFluidFlowRateMax)
+    self.monitor.write(self.turbine.getFluidFlowRateMax())
     self.monitor.setCursorPos(1,row)
     row = row + 1
     if self.turbine.getInductorEngaged() then

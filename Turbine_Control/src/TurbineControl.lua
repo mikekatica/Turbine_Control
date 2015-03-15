@@ -56,7 +56,7 @@ run = function (c)
         rstTerm()
         print("Set Target: ")
         local trg = read()
-        c.setTarget(c, trg)
+        c.setTarget(c, tonumber(trg))
       elseif yPos == 5 then
         rstTerm()
         print("Kp: ")
@@ -65,7 +65,7 @@ run = function (c)
         local cnI = read()
         print("Kd: ")
         local cnD = read()
-        c.setConstants(c, cnP, cnI, cnD)
+        c.setConstants(c, tonumber(cnP), tonumber(cnI), tonumber(cnD))
       end
     end
     sleep(0.5)

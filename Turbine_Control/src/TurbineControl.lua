@@ -7,10 +7,28 @@ printMenu = function (t)
   row = 1
   term.setCursorPos(1,row)
   row = row + 1
-  term.setBackgroundColor(colors.red)
+  term.setBackgroundColor(colors.green)
   term.write("Activate Turbine")
   term.setCursorPos(1,row)
+  row = row + 1
   term.setBackgroundColor(colors.black)
+  term.write("  ")
+  term.setCursorPos(1,row)
+  row = row + 1
+  term.setBackgroundColor(colors.red)
+  term.write("Set Target RPM")
+  term.setCursorPos(1,row)
+  row = row + 1
+  term.setBackgroundColor(colors.black)
+  term.write("  ")
+  term.setCursorPos(1,row)
+  row = row + 1
+  term.setBackgroundColor(colors.orange)
+  term.write("Set PID Constants")
+  term.setCursorPos(1,row)
+  row = row + 1
+  term.setBackgroundColor(colors.black)
+  term.write("  ")
 end
 updateDisp = function (c)
   while true do
@@ -26,11 +44,28 @@ run = function (c)
     printMenu()
     local event, button, xPos, yPos = os.pullEvent("mouse_click")
     if event then
-      if yPos < 2 and yPos > 0 then
+      if yPos == 1 then
         rstTerm()
-        print("Turbine Spinning Up")
-        c.setTarget(c, 1800)
-        c.begin(c)
+        if c.target then
+          print("Turbine Spinning Up")
+          c.begin(c)
+        else
+          print("No Target Set")
+        end
+      elseif yPos == 3 then
+        rstTerm()
+        print("Set Target: ")
+        local trg = read()
+        c.setTarget(c, trg)
+      elseif yPos == 5 then
+        rstTerm()
+        print("Kp: ")
+        local cnP = read()
+        print("Ki: ")
+        local cnI = read()
+        print("Kd: ")
+        local cnD = read()
+        c.setConstants(cnP, cnI, cnD)
       end
     end
     sleep(0.5)

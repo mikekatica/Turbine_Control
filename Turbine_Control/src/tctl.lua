@@ -13,15 +13,15 @@ control = {
   stableCounter = 0,
   err = 0,
   isSetUp = function (self)
-    if not (t and self.target and m and self.maxFlow) then
+    if not (self.turbine and self.target and m and self.maxFlow) then
       return 0
     else
       return 1
     end
   end,
   setUp = function (self, t, m, f, l)
-    t = t
-    m = m
+    self.turbine = t
+    self.monitor = m
     self.maxFlow = f
     self.log = l
   end,
@@ -32,11 +32,11 @@ control = {
     if not self.stage == self.CNST_OFF then
       return -1
     end
-    if t.getInputAmount() == 0 or t.getActive() then
+    if self.turbine.getInputAmount() == 0 or self.turbine.getActive() then
       return 0
     else
-      t.setInductorEngaged(false)
-      t.setActive(true)
+      self.turbine.setInductorEngaged(false)
+      self.turbine.setActive(true)
       return 1
     end
   end,
@@ -56,7 +56,7 @@ control = {
     --t.setFluidFlowRateMax(self.maxFlow)
     while self.stableCounter < 1000 do
       term.clear()
-      self.err = self.target - t.getRotorSpeed()
+      self.err = self.target - self.turbine.getRotorSpeed()
       curtime = os.clock()
       dt = curtime - prevtime
       print("dt")
@@ -75,20 +75,20 @@ control = {
       calculatedFlow = desiredFlow + self.val
       print("Calculated Flow " .. calculatedFlow)
       if calculatedFlow > self.maxFlow then
-        t.setFluidFlowRateMax(self.maxFlow)
+        self.turbine.setFluidFlowRateMax(self.maxFlow)
         print("Set Flow to Max")
         desiredFlow = self.maxFlow
       elseif calculatedFlow < 0 then
-        t.setFluidFlowRateMax(0)
+        self.turbine.setFluidFlowRateMax(0)
         print("Set Flow to 0")
         desiredFlow = 0
       else
-        t.setFluidFlowRateMax(calculatedFlow)
+        self.turbine.setFluidFlowRateMax(calculatedFlow)
         print("Set Flow to " .. calculatedFlow)
         desiredFlow = calculatedFlow
       end
-      if t.getRotorSpeed() > self.target and not t.getInductorEngaged() then
-        t.setInductorEngaged(true)
+      if self.turbine.getRotorSpeed() > self.target and not self.turbine.getInductorEngaged() then
+        self.turbine.setInductorEngaged(true)
         print("Coils Engaged")
       end
       if self.err < 1 and self.err > -1 then
@@ -101,9 +101,9 @@ control = {
       self.previous_error = self.err
       local timer = (math.floor(prevtime) == math.floor(curtime))
       print("Curtime " .. curtime)
-      self.log.log(self.log, t, curtime, desiredFlow)
+      self.log.log(self.log, self.turbine, curtime, desiredFlow)
       --if not timer then
-        --self.updateDisplay(self)
+      --self.updateDisplay(self)
       --end
       prevtime = curtime
       sleep(0.05)
@@ -114,7 +114,7 @@ control = {
     return 1
   end,
   disable = function (self)
-    t.setActive(false)
+    self.turbine.setActive(false)
     self.stage = self.CNST_OFF
   end,
   begin   =       function (self)
@@ -163,14 +163,12 @@ control = {
       self.monitor.setTextColor(colors.lime)
     end
     self.monitor.write(rpm)
-    if dFlow then
-      self.monitor.setCursorPos(1,row)
-      row = row + 1
-      self.monitor.setTextColor(colors.white)
-      self.monitor.write("Flow: ")
-      self.monitor.setTextColor(colors.magenta)
-      self.monitor.write(self.turbine.getFluidFlowRateMax)
-    end
+    self.monitor.setCursorPos(1,row)
+    row = row + 1
+    self.monitor.setTextColor(colors.white)
+    self.monitor.write("Flow: ")
+    self.monitor.setTextColor(colors.magenta)
+    self.monitor.write(self.turbine.getFluidFlowRateMax)
     self.monitor.setCursorPos(1,row)
     row = row + 1
     if self.turbine.getInductorEngaged() then

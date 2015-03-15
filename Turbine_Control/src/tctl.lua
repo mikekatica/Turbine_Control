@@ -10,7 +10,7 @@ control = {
   ki = 0.5,
   kd = 2,
   isSetUp = function (self)
-    if not (self.turbine and self.target and m and self.maxFlow) then
+    if not (self.turbine and self.target and self.monitor and self.maxFlow) then
       return 0
     else
       return 1

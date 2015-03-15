@@ -52,6 +52,8 @@ run = function (c)
         if c.target then
           print("Turbine Spinning Up")
           c.begin(c)
+        elseif not c.isSetUp(c) then
+          print("Not Set Up")
         else
           print("No Target Set")
         end

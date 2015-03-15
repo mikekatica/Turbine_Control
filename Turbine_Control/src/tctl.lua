@@ -92,14 +92,14 @@ control = {
         self.turbine.setInductorEngaged(true)
         print("Coils Engaged")
       end
-      if self.err < 1 and self.err > -1 then
-        self.stableCounter = self.stableCounter + 1
+      if err < 1 and err > -1 then
+        stableCounter = stableCounter + 1
         print("Stable for")
-        print(self.stableCounter)
+        print(stableCounter)
       else
-        self.stableCounter = 0
+        stableCounter = 0
       end
-      self.previous_error = self.err
+      previous_error = err
       local timer = (math.floor(prevtime) == math.floor(curtime))
       print("Curtime " .. curtime)
       self.log.log(self.log, self.turbine, curtime, desiredFlow)

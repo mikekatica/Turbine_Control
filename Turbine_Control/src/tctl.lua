@@ -57,7 +57,7 @@ control = {
     err = 0
     previous_error = 0
     stableCounter = 0
-    prevtime = os.clock()
+    prevtime = os.clock() - 0.01
     --t.setFluidFlowRateMax(self.maxFlow)
     while stableCounter < 1000 do
       term.clear()

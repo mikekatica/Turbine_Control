@@ -74,6 +74,7 @@ control = {
       val = self.kp*err + self.ki*integral + self.kd*derivative
       print("result: "..val)
       calculatedFlow = desiredFlow + val
+      print("Desired Flow: " .. desiredFlow)
       print("Calculated Flow: " .. calculatedFlow)
       if calculatedFlow > self.maxFlow then
         self.turbine.setFluidFlowRateMax(self.maxFlow)

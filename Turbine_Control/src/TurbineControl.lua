@@ -32,10 +32,9 @@ term.clear()
 local c1 = coroutine.create(updateDisp)
 coroutine.resume(c1, c)
 while not exit do
-  local event, button, xPos, yPos = os.pullEvent("mouse_click")
   rstTerm()
   printMenu()
-  c.updateDisplay(c, nil)
+  local event, button, xPos, yPos = os.pullEvent("mouse_click")
   if event then
     if yPos < 2 and yPos > 0 then
       rstTerm()

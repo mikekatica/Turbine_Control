@@ -82,7 +82,7 @@ run = function (c)
         local cnD = read()
         c.setConstants(c, tonumber(cnP), tonumber(cnI), tonumber(cnD))
        elseif yPos == 7 then
-        c.disable()
+        c.disable(c)
       end
     end
     sleep(0.5)

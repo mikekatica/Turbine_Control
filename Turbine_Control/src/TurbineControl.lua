@@ -31,6 +31,16 @@ printMenu = function (c)
   term.write("  ")
   term.setCursorPos(1,row)
   row = row + 1
+  term.setBackgroundColor(colors.white)
+  term.setTextColor(colors.black)
+  term.write("Disable Reactor")
+  term.setCursorPos(1,row)
+  row = row + 1
+  term.setBackgroundColor(colors.black)
+  term.setTextColor(colors.black)
+  term.write("  ")
+  term.setCursorPos(1,row)
+  row = row + 1
   term.write("Target:  "..c.target.."  Kp: "..c.kp.."  Ki: "..c.ki.."  Kd: "..c.kd)
 end
 updateDisp = function (c)
@@ -71,6 +81,8 @@ run = function (c)
         print("Kd: ")
         local cnD = read()
         c.setConstants(c, tonumber(cnP), tonumber(cnI), tonumber(cnD))
+       elseif yPos == 7 then
+        c.disable()
       end
     end
     sleep(0.5)

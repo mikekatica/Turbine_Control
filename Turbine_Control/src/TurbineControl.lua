@@ -51,6 +51,7 @@ updateDisp = function (c)
 end
 run = function (c)
   exit = false
+  c.disable(c)
   term.clear()
   while not exit do
     rstTerm()

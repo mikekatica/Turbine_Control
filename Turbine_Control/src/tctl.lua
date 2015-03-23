@@ -117,6 +117,7 @@ control = {
   end,
   disable = function (self)
     self.turbine.setActive(false)
+    self.turbine.setInductorEngaged(false)
     self.stage = self.CNST_OFF
   end,
   begin   =       function (self)

@@ -89,7 +89,7 @@ control = {
         print("Set Flow to " .. calculatedFlow)
         desiredFlow = calculatedFlow
       end
-      if self.turbine.getRotorSpeed() > self.target and not self.turbine.getInductorEngaged() then
+      if self.turbine.getRotorSpeed() > (self.target - 50) and not self.turbine.getInductorEngaged() then
         self.turbine.setInductorEngaged(true)
         print("Coils Engaged")
       end

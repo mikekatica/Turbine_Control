@@ -117,7 +117,7 @@ control = {
   end,
   disable = function (self)
     self.turbine.setActive(false)
-    while self.turbine.getRotorSpeed() > 10 do
+    while self.turbine.getRotorSpeed() > 100 do
       sleep(1)
     end
     self.turbine.setInductorEngaged(false)

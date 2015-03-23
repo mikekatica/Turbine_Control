@@ -7,7 +7,7 @@ control = {
   stage = -1,
   target = 0,
   kp = 0.5,
-  ki = 0.5,
+  ki = 0,
   kd = 2,
   isSetUp = function (self)
     if not (self.turbine and self.target and self.monitor and self.maxFlow) then

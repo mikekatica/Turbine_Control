@@ -108,7 +108,7 @@ control = {
       --self.updateDisplay(self)
       --end
       prevtime = curtime
-      sleep(0.05)
+      sleep(0.5)
     end
     self.stage = self.CNST_STABLE
     self.log.close(self.log)

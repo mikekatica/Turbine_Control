@@ -46,7 +46,7 @@ end
 updateDisp = function (c)
   while true do
     c.updateDisplay(c)
-    sleep(0.1)
+    sleep(1)
   end
 end
 run = function (c)
@@ -86,7 +86,7 @@ run = function (c)
         c.disable(c)
       end
     end
-    sleep(0.5)
+    sleep(1)
   end
 end
 --init
